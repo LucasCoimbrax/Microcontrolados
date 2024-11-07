@@ -95,31 +95,6 @@ int main(void)
   while (1)
   {
 
-    // uint8_t bit0 = 1 << 0;
-    // uint8_t contagem = 13;
-
-    // for( i = 0; i < 10; i++)
-    // {
-    //   // Aciona apenas 1 vez quando o botão é precionado
-    //   if( button_release( GPIOA, GPIO_PIN_5, 0) )
-    //   {
-    //     // Estado logico baixo quando iniciado
-    //     HAL_GPIO_WritePin( GPIOB, leds, 0 );
-    //     // Condicional com o led ele verifica se o led esta com o bit referente em 1, que nem a tabela que ele mostrou no video
-    //     // e caso seja falso ele pega o botão da vez e multiplica o bit 1 dele por 0xF8 que contem os '1111..' lógico para 
-    //     // conseguir uma saida atribuindo ao leds
-    //     // leds = (leds == 0) ? 1 << 3 : (( leds << 1) & 0xF8);
-
-    //     //Seta o nivel logido alto do botão da vez
-    //     HAL_GPIO_WritePin( GPIOB, leds, 1 );
-    //   }
-    //   // Pequeno delay que interage com o if e for, ou seja, a cada 45 seg ele esta verificando se o botão foi pressionado
-    //   HAL_Delay(45);
-    // }
-
-    // // Acende o led da placa em paralelo independente
-    // HAL_GPIO_TogglePin(KIT_LED_GPIO_Port, KIT_LED_Pin);
-
     for( i = 0; i < 10; i++)
     {
     // Lê o sinal do botão
