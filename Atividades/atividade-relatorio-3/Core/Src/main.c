@@ -42,7 +42,8 @@
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-
+uint16_t leds = 0;
+uint16_t PeriodTimer = 1030;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -88,37 +89,25 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
+  // Função de start do timer com o ponteiro para o timer 2
+  HAL_TIM_Base_Start_TT (&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    // // Teste dos pinos e botões configurados na placa
-    // //Bottão 1
-      if( button_release( GPIOA, GPIO_PIN_5, 0) )
-      {
-        HAL_GPIO_WritePin( GPIOB, LED_1_Pin, 1);
-        HAL_Delay(200);
-        HAL_GPIO_WritePin( GPIOB, LED_1_Pin, 0);
+    //Bottão 1
+    if( button_release( GPIOA, GPIO_PIN_5, 0) )
+    {
+      PeriodTimer = PeriodTimer + 103;
+    }
 
-        HAL_GPIO_WritePin( GPIOB, LED_2_Pin, 1);
-        HAL_Delay(200);
-        HAL_GPIO_WritePin( GPIOB, LED_2_Pin, 0);
-
-        HAL_GPIO_WritePin( GPIOB, LED_3_Pin, 1);
-        HAL_Delay(200);
-        HAL_GPIO_WritePin( GPIOB, LED_3_Pin, 0);
-
-        HAL_GPIO_WritePin( GPIOB, LED_4_Pin, 1);
-        HAL_Delay(200);
-        HAL_GPIO_WritePin( GPIOB, LED_4_Pin, 0);
-
-        HAL_GPIO_WritePin( GPIOB, LED_5_Pin, 1);
-        HAL_Delay(200);
-        HAL_GPIO_WritePin( GPIOB, LED_5_Pin, 0);      
-
-      }
+    //Bottão 2
+    if( button_release( GPIOA, GPIO_PIN_6, 0) )
+    {
+      PeriodTimer = PeriodTimer - 103
+    }
 
     // Altera o estado lógico do led da placa a cada 200ms
     HAL_GPIO_TogglePin(KIT_LED_GPIO_Port, KIT_LED_Pin);
@@ -197,7 +186,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 7200-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 1030;
+  htim2.Init.Period = PeriodTimer;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -269,6 +258,14 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+//Função de deverá ser acionada quando o timer for acionado
+
+void HAL_TIM _ PeriodElapsedCallback( TIM_HandleTypeDef*htim )
+{
+  leds = ( leds == 0 ) ? ( 1 << 3 ) : ( ( leds << 1 ) & 0x1F << 3 );
+  HAL_GPIO_WritePin(GPIOB, 0X1F << 3, 0);
+  HAL_GPIO_WritePin(GPIOB, leds, 1);
+}
 /* USER CODE END 4 */
 
 /**
