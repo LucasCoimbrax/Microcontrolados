@@ -1,0 +1,17 @@
+fc = 100MHz
+tc = 1/fc = 10 ns
+
+P = 16bits = 65535
+P = 10000
+
+fi = fc/P = 100MHz / 10000 = 0,01MHz
+ti = 1 / fi = 1 / 0,01MHz = 100us
+
+
+Contagem      Período
+   1            100us
+   I		103ms
+
+I = 103 ms / 100us = 1030
+
+O valor de I, 100000, é suportado pelo comparador, 65535?
